@@ -1,6 +1,8 @@
-# rptd-core `v1.1.1`
+# rptd-core `v1.1.2`
 
 rptd-core is a package that allows for generating ruptured levels using code
+
+you can see he source code on github here: [rptd-core](https://github.com/samgcode/rptd-core)
 
 ## Installation
 
@@ -52,7 +54,7 @@ A class that contains all of the data for a Ruptured level, as well as many func
 |`nextFreeChannel`|Contains the lowest value channel that is not being used|
 
 ### constructor
-Takes an object with the following properties (see [`rptd-core/examples`](https://www.npmjs.com/package/rptd-core?activeTab=explore) to see how this works):
+Takes an object with the following properties (see [`rptd-core/examples`](https://github.com/samgcode/rptd-core/tree/main/examples/) to see how this works):
 
 | param | default | description |
 |---|---|---|
@@ -67,7 +69,7 @@ Takes an object with the following properties (see [`rptd-core/examples`](https:
 |`InitialEnergy`|`30`|Default max energy
 
 ## methods
-> All of the following methods take an object with the listed properties as a parameter, see [`rptd-core/examples`](https://www.npmjs.com/package/rptd-core?activeTab=explore) to see examples
+> All of the following methods take an object with the listed properties as a parameter, see [`rptd-core/examples`](https://github.com/samgcode/rptd-core/tree/main/examples/) to see examples
 
 ### Level meta data methods
 #### `setLevelData({ })`
