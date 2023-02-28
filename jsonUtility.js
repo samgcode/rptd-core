@@ -14,12 +14,16 @@ class JsonUtility {
   }
   
   writeLevelToFile(levelData, file) {
+    console.log(`tiles: ${levelData.tileCount}`)
+    console.log(`entities: ${levelData.prefabCount}`)
+    delete levelData.tileCount
+    delete levelData.prefabCount
+    delete levelData.channelsUsed
     let json = JSON.stringify(levelData)
+
     fs.writeFileSync(file, json, 'utf8', (err) => {
       if(err) throw err
     }); 
-    console.log(`tiles: ${levelData.tileCount}`)
-    console.log(`entities: ${levelData.prefabCount}`)
     console.log("file write successful")
   }
 
