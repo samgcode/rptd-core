@@ -17,12 +17,12 @@ class Level {
 
   get nextFreeChannel() {
     let channel = -1
-    this.channelsUsed.forEach((ch, index) => {
-      if(!ch) {
+    for(let index = 0; index <= this.channelsUsed.length; index++) {
+      if(this.channelsUsed[index] != index) {
         channel = index
+        break
       }
-    })
-
+    }
     return channel
   }
 
@@ -62,23 +62,27 @@ class Level {
   }
     
   addPrefab({ sectionId=0, ID, x, y, Properties={} }) {
+    let channel = Properties.Channel
+    if(channel === -2) {
+      channel = this.nextFreeChannel
+    }
+    this.channelsUsed[channel] = channel
+    Properties.Channel = channel
+
     this.prefabCount++;
     this.Sections[sectionId].Prefabs.push({ID, Position: {x, y}, Properties})
+    return channel
   }
 
   addBooster({ sectionId=0, x, y, Strength=30, Channel=-2, StartActive=true, Direction=0 }) {
-    const _channel = (channel === -2) ? this.nextFreeChannel : Channel
-    this.addPrefab({ 
+    return this.addPrefab({ 
       sectionId, ID: 1, x, y, 
-      Properties: {Strength, Channel: _channel, StartActive, Direction}
+      Properties: {Strength, Channel, StartActive, Direction}
     })
-    return _channel
   }
   
   addButton({ sectionId=0, x, y, Channel=-2 }) {
-    const _channel = (channel === -2) ? this.nextFreeChannel : Channel
-    this.addPrefab({ sectionId, ID: 200, x, y, Properties: {Channel: _channel}})
-    return _channel
+    return this.addPrefab({ sectionId, ID: 200, x, y, Properties: {Channel}})
   }
 
   addCheckPoint({ sectionId=0, x, y, isLevelEnd=false }) {
@@ -96,24 +100,21 @@ class Level {
 
   
   addMovingPlatform({ sectionId=0, ID=4, x, y, Size={x:1,y:1}, Channel=-2, PathEnabled=false, PathID=0, InitialPointID=0, Speed=3, Reversed=false, PauseDuration=0 }) {
-    const _channel = (channel === -2) ? this.nextFreeChannel : Channel
-    this.addPrefab({
+    return this.addPrefab({
       sectionId,
       ID,
       x, y,
       Properties: {
         Size,
-        Channel: _channel,
+        Channel,
         PathEnabled, PathID, InitialPointID,
         Speed, Reversed, PauseDuration
       }
     })
-    return _channel
   }
 
   addToggleWall({ sectionId=0, x, y, Size={x:1,y:1}, Channel=-2, PathEnabled=false, PathID=0, InitialPointID=0, Speed=3, Reversed=false, PauseDuration=0 }) {
-    const _channel = (channel === -2) ? this.nextFreeChannel : Channel
-    this.addMovingPlatform({
+    return this.addMovingPlatform({
       sectionId,
       ID: 201,
       x, y, Size,
@@ -121,7 +122,6 @@ class Level {
       PathEnabled, PathID, InitialPointID,
       Speed, Reversed, PauseDuration
     })
-    return _channel
   }
 }
 
