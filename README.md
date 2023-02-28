@@ -1,4 +1,4 @@
-# rptd-core `v1.1.5`
+# rptd-core `v1.2.1`
 
 rptd-core is a package that allows for generating ruptured levels using code
 
@@ -89,6 +89,7 @@ Creates a new section in the level
 |`spawnPointY`|`0`|Y coord of the players default spawn point|
 #### `addPath({ })`
 Adds a path object to the specified section
+
 | param | default | description |
 |---|---|---|
 |`sectionId`|`0`|Section to add the path to|
@@ -96,6 +97,7 @@ Adds a path object to the specified section
 ### Tile utils
 #### `addTile({ })`
 Adds a tile on the specified section and layer
+
 | param | default | description |
 |---|---|---|
 |`sectionId`|`0`|Section to add the tile on|
@@ -109,6 +111,7 @@ Adds a tile on the specified section and layer
 > note: this function is used under the hood by all prefab utility methods, and it is not reccomended to use this directly, unless there is not yet an implemented method for the desired prefab
 
 Creates a prefab with the specified parameters
+
 | param | default | description |
 |---|---|---|
 |`sectionId`|`0`|Section to add prefab in|
@@ -120,6 +123,7 @@ Creates a prefab with the specified parameters
 
 #### `addMovingPlatform({ })`
 General function for adding prefabs that can move along a path
+
 | param | default | description |
 |---|---|---|
 |`sectionId`|`0`|Section to add the prefab to|
@@ -135,8 +139,23 @@ General function for adding prefabs that can move along a path
 |`Reversed`|`false`|Weather or not the platform follows the path in reverse|
 |`PauseDuration`|`0`|Amount of time that the platform pauses at each point|
 
+#### `addLogicGate({ })`
+General function for adding logic gates, not reccommended to use directly (see Logic gate methods)
+
+returns the channels that were used as an object
+
+| param | default | description |
+|---|---|---|
+|`sectionID`|`0`|Section to add the logic gate in|
+|`ID`||id of the gate type|
+|`x`||x position of the gate|
+|`y`||y position of the gate|
+|`Channels`|`{ }`|Object containing the channels of the gate|
+|`Properties`|`{ }`|Any other properties of the gate|
+
 ### prefab utils
 #### `addBooster({ })`
+
 | param | default | description |
 |---|---|---|
 |`sectionId`|`0`|Section to add the prefab to|
@@ -156,6 +175,7 @@ General function for adding prefabs that can move along a path
 |`Channel`|`-2`|Channel of the booster (see [Appendices](#Appendices) for more info)|
 
 #### `addCheckPoint({ })`
+
 | param | default | description |
 |---|---|---|
 |`sectionId`|`0`|Section to add the check point to|
@@ -164,6 +184,7 @@ General function for adding prefabs that can move along a path
 |`isLevelEnd`|`false`|Weather or not this checkpoint is a level end trigger|
 
 #### `addCrate({ })`
+
 | param | default | description |
 |---|---|---|
 |`sectionId`|`0`|Section to add the crate to|
@@ -173,6 +194,7 @@ General function for adding prefabs that can move along a path
 ### moving platform prefabs
 #### `addToggleWall({ })`
 General function for adding prefabs that can move along a path
+
 | param | default | description |
 |---|---|---|
 |`sectionId`|`0`|Section to add the prefab to|
@@ -187,9 +209,65 @@ General function for adding prefabs that can move along a path
 |`Reversed`|`false`|Weather or not the platform follows the path in reverse|
 |`PauseDuration`|`0`|Amount of time that the platform pauses at each point|
 
+### Logic gate methods
+#### `addAndGate({ })`,`addOrGate({ })`,`addXorGate({ })`
+Functions for adding and, or, and xor, they all have the same parameters
+returns the channels that were used as an object (eg: `{ InChannel1: 3, InChannel2: 4, OutChannel1: 5 }`)
+
+| param | default | description |
+|---|---|---|
+|`sectionID`|`0`|Section to add the logic gate in|
+|`x`||x position of the gate|
+|`y`||y position of the gate|
+|`InChannel1`|`-2`|First input channel|
+|`InChannel2`|`-2`|Second input channel|
+|`OutChannel1`|`-2`|Output channel|
+
+#### `addNotGate({ })`
+Function for adding  not gates
+returns the channels that were used as an object (eg: `{ InChannel1: 3, OutChannel1: 4 }`)
+
+| param | default | description |
+|---|---|---|
+|`sectionID`|`0`|Section to add the logic gate in|
+|`x`||x position of the gate|
+|`y`||y position of the gate|
+|`InChannel1`|`-2`|First input channel|
+|`OutChannel1`|`-2`|Output channel|
+
+#### `addLatchGate({ })`
+Function for adding latches and t-flip-flops (TFF)
+returns the channels that were used as an object (eg: `{ OnChannel: 11, OffChannel: 12, OutChannel1: 13}`)
+
+| param | default | description |
+|---|---|---|
+|`sectionID`|`0`|Section to add the logic gate in|
+|`x`||x position of the gate|
+|`y`||y position of the gate|
+|`OnChannel`|`-2`|On input channel|
+|`OffChannel`|`-2`|Off input channel|
+|`OutChannel1`|`-2`|Output channel|
+|`StartActive`|`false`|Wether the latch starts active or not|
+|`TFF`|`false`|Wether the latch is a TFF or not|
+
+#### `addClock({ })`
+Function for adding clocks
+returns the channel that was used as an object (eg: `{ OutChannel1: 16 }`)
+
+| param | default | description |
+|---|---|---|
+|`sectionID`|`0`|Section to add the logic gate in|
+|`x`||x position of the gate|
+|`y`||y position of the gate|
+|`Channel`|`-2`|Output channel|
+|`StartActive`|`false`|Wether the latch starts active or not|
+|`OnTime`|`0.1`|Amount of time the clock is on for|
+|`OffTime`|`0.1`|Amount of time the clock is off for|
+
 # Path
 Represents a path that a moving platform can follow, to create a ne Path use `new Path(id)` and then use `path.addPosition({ x, y })` to add positions.
 ### constructor
+
 | param | default | description |
 |---|---|---|
 |`ID`|0|The path id to be referenced by moving platforms|
@@ -197,6 +275,7 @@ Represents a path that a moving platform can follow, to create a ne Path use `ne
 ## methods
 #### `addPosition({ })`
 takes an object containing the x and y position of the new point, points of a path are followed in order
+
 | param | description |
 |---|---|
 |`x`|x position of the point|
@@ -213,6 +292,7 @@ takes an object containing the x and y position of the new point, points of a pa
 - all of these functions return the channels used
 
 ### layers
+
 |name|description|
 |---|---|
 |`"T0"`|default layer for standard tiles|

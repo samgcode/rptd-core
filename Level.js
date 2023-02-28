@@ -166,7 +166,7 @@ class Level {
     return this.addLogicGate({ sectionId, ID: 206, x, y, Channels: { InChannel1, InChannel2, OutChannel1 }})
   }
 
-  addClock({ sectionId=0, x, y, Channel, StartActive=false, OnTime=0.1, OffTime=0.1 }) {
+  addClock({ sectionId=0, x, y, Channel=-2, StartActive=false, OnTime=0.1, OffTime=0.1 }) {
     return this.addLogicGate({ sectionId, ID: 208, x, y, Channels: { OutChannel1: Channel }, Properties: { StartActive, 'On Time': OnTime, 'Off Time': OffTime }})
   }
 
@@ -181,8 +181,6 @@ class Level {
     }
     return this.addLogicGate({ sectionId, ID: 209, x, y, Channels: channels, Properties: { StartActive }})
   }
-
-  //{"Channel":0,"StartActive":false,"On Time":0.1,"Off Time":0.1}}
 }
 
 
