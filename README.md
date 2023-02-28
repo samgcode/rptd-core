@@ -1,4 +1,4 @@
-# rptd-core `v1.2.1`
+# rptd-core `v1.2.2`
 
 rptd-core is a package that allows for generating ruptured levels using code
 
@@ -143,6 +143,8 @@ General function for adding prefabs that can move along a path
 General function for adding logic gates, not reccommended to use directly (see Logic gate methods)
 
 returns the channels that were used as an object
+
+see [`rptd-core/examples/gateExample.js`](https://github.com/samgcode/rptd-core/tree/main/examples/gateExample.js) for an example
 
 | param | default | description |
 |---|---|---|
