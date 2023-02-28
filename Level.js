@@ -12,6 +12,7 @@ class Level {
     this.Sections = Sections
     this.tileCount = 0
     this.prefabCount = 0
+    this.gateCount = 0
     this.channelsUsed = []
   }
 
@@ -118,13 +119,71 @@ class Level {
       sectionId,
       ID: 201,
       x, y, Size,
-      Channel: _channel,
+      Channel,
       PathEnabled, PathID, InitialPointID,
       Speed, Reversed, PauseDuration
     })
   }
-}
 
+  addLogicGate({ sectionId=0, ID, x, y, Channels={}, Properties={} }) {
+    this.gateCount++
+    
+    const channels = Channels
+
+    for (const [key, value] of Object.entries(channels)) {  
+      if(value === -2) {
+        channels[key] = this.nextFreeChannel
+      }
+      this.channelsUsed[channels[key]] = channels[key]
+    }
+
+    const remappedChannels = {
+      Channel: Channels.OutChannel1,
+      'In Channel': Channels.InChannel,
+      'In Channel 1': Channels.InChannel1,
+      'In Channel 2': Channels.InChannel2,
+      'On Channel': Channels.OnChannel,
+      'Off Channel': Channels.OffChannel
+    }
+
+    this.Sections[sectionId].Prefabs.push({ID, Position: {x, y}, Properties: { ...remappedChannels, ...Properties}})
+    return channels
+  }
+
+  addOrGate({ sectionId=0, x, y, InChannel1=-2, InChannel2=-2, OutChannel1=-2 }) {
+    return this.addLogicGate({ sectionId, ID:203, x, y, Channels: { InChannel1, InChannel2, OutChannel1 }})
+  }
+
+  addAndGate({ sectionId=0, x, y, InChannel1=-2, InChannel2=-2, OutChannel1=-2 }) {
+    return this.addLogicGate({ sectionId, ID: 204, x, y, Channels: { InChannel1, InChannel2, OutChannel1 }})
+  }
+
+  addNotGate({ sectionId=0, x, y, InChannel1=-2, OutChannel1=-2 }) {
+    return this.addLogicGate({ sectionId, ID: 205, x, y, Channels: { InChannel: InChannel1, OutChannel1 }})
+  }
+
+  addXorGate({ sectionId=0, x, y, InChannel1=-2, InChannel2=-2, OutChannel1=-2 }) {
+    return this.addLogicGate({ sectionId, ID: 206, x, y, Channels: { InChannel1, InChannel2, OutChannel1 }})
+  }
+
+  addClock({ sectionId=0, x, y, Channel, StartActive=false, OnTime=0.1, OffTime=0.1 }) {
+    return this.addLogicGate({ sectionId, ID: 208, x, y, Channels: { OutChannel1: Channel }, Properties: { StartActive, 'On Time': OnTime, 'Off Time': OffTime }})
+  }
+
+  addLatchGate({ sectionId=0, x, y, OnChannel=-2, OffChannel=-2, OutChannel1=-2, StartActive=false, TFF=false }) {
+    const channels = { OnChannel, OffChannel, OutChannel1 }
+    if(TFF) {
+      if(channels.OnChannel === -2) {
+        channels.OnChannel = this.nextFreeChannel
+      }
+      channels.OffChannel = channels.OnChannel
+      this.channelsUsed[channels.OnChannel] = channels.OnChannel
+    }
+    return this.addLogicGate({ sectionId, ID: 209, x, y, Channels: channels, Properties: { StartActive }})
+  }
+
+  //{"Channel":0,"StartActive":false,"On Time":0.1,"Off Time":0.1}}
+}
 
 
 module.exports = Level
