@@ -53,6 +53,10 @@ class Level {
     })
   }
 
+  useChannel(channel) {
+    this.channelsUsed[channel] = channel
+  }
+
   addTile({ sectionId=0, ID=0, layer="T0", x, y }) {
     this.tileCount++;
     this.Sections[sectionId][layer] += `${ID}(${x},${y})`

@@ -14,9 +14,11 @@ class JsonUtility {
   }
   
   writeLevelToFile(levelData, file) {
+    levelData.channelsUsed = levelData.channelsUsed.filter(n => n)
     console.log(`tiles: ${levelData.tileCount}`)
     console.log(`entities: ${levelData.prefabCount}`)
     console.log(`logic gates: ${levelData.gateCount}`)
+    console.log(`channels: ${levelData.channelsUsed.length}`)
     delete levelData.tileCount
     delete levelData.prefabCount
     delete levelData.gateCount
