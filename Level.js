@@ -100,7 +100,7 @@ class Level {
   }
 
   
-  addMovingPlatform({ sectionId=0, ID=4, x, y, Size={x:1,y:1}, Channel=-2, PathEnabled=false, PathID=0, InitialPointID=0, Speed=3, Reversed=false, PauseDuration=0 }) {
+  addMovingPlatform({ sectionId=0, ID=4, x, y, Size={x:1,y:1}, Channel=-2, StartActive=false, PathEnabled=false, PathID=0, InitialPointID=0, Speed=3, Reversed=false, PauseDuration=0 }) {
     return this.addPrefab({
       sectionId,
       ID,
@@ -108,18 +108,20 @@ class Level {
       Properties: {
         Size,
         Channel,
+        StartActive,
         PathEnabled, PathID, InitialPointID,
         Speed, Reversed, PauseDuration
       }
     })
   }
 
-  addToggleWall({ sectionId=0, x, y, Size={x:1,y:1}, Channel=-2, PathEnabled=false, PathID=0, InitialPointID=0, Speed=3, Reversed=false, PauseDuration=0 }) {
+  addToggleWall({ sectionId=0, x, y, Size={x:1,y:1}, Channel=-2, StartActive=false, PathEnabled=false, PathID=0, InitialPointID=0, Speed=3, Reversed=false, PauseDuration=0 }) {
     return this.addMovingPlatform({
       sectionId,
       ID: 201,
       x, y, Size,
       Channel,
+      StartActive,
       PathEnabled, PathID, InitialPointID,
       Speed, Reversed, PauseDuration
     })

@@ -1,4 +1,4 @@
-# rptd-core `v1.2.2`
+# rptd-core `v1.2.3`
 
 rptd-core is a package that allows for generating ruptured levels using code
 
