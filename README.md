@@ -1,4 +1,4 @@
-# rptd-core `v1.2.4`
+# rptd-core `v1.2.5`
 
 rptd-core is a package that allows for generating ruptured levels using code
 
@@ -24,7 +24,7 @@ const { jsonUtility, Level, Path } = require('rptd-core')
 // create a new level
 const level = new Level({ LevelName: 'Example Level' })
 // add a new section
-level.createSection({ LevelBounds:{ x:-100, y:100, z:-100, w:100 }})
+level.createSection({ LevelBounds:{ x:-100, y:100, z:100, w:-100 }})
 ```
 Now you can add tiles and prefabs using level.addTile(...), level.addBGTile(...) etc. ([more documentation on all these function below](#Documentation))
 
@@ -84,7 +84,7 @@ Creates a new section in the level
 |---|---|---|
 |`Name`|`""`|Section name|
 |`Music`|`1`|Section music|
-|`LevelBounds`|`{x: 0, y: 0, z: 0, w: 0}`|An object containing the x,y coordinates of the bottom left corner of the level bounds (x, y) and the x,y coordinates of the top right corner (z, w)|
+|`LevelBounds`|`{x: 0, y: 0, z: 0, w: 0}`|An object containing the x = left wall, y = right wall, z = top wall, w = bottom wall|
 |`spawnPointX`|`0`|X coord of the players default spawn point|
 |`spawnPointY`|`0`|Y coord of the players default spawn point|
 #### `addPath({ })`

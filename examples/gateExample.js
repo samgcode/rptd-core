@@ -2,7 +2,7 @@ const { jsonUtility, Level } = require('rptd-core') //import components
 
 // setup meta data
 const level = new Level({LevelName: "gate example"}) 
-level.createSection({LevelBounds:{x:-1000, y:1000, z:-1000, w:1000}})
+level.createSection({LevelBounds:{x:-1000, y:1000, z:1000, w:-1000}})
 
 // create a small floor to stand on
 for(i = -5; i < 10; i++) {

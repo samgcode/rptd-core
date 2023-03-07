@@ -1,6 +1,6 @@
 {
   "name": "rptd-core",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "An api for generating ruptured levels using code",
   "main": "index.js",
   "scripts": {

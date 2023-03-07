@@ -2,7 +2,7 @@ const { jsonUtility, Level } = require('rptd-core') // import required component
 const fs = require('fs') // package fro file I/O
 
 const level = new Level({LevelName: "Bad Apple", Slot0Gun:1}) // create a new level
-level.createSection({LevelBounds:{x:-100, y:300000, z:-100, w:100}}) // create a new section with the given bounds
+level.createSection({LevelBounds:{x:-100, y:300000, z:100, w:-100}}) // create a new section with the given bounds
 
 // constants
 const screenWidth = 28
