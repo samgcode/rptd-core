@@ -143,16 +143,7 @@ class Level {
       this.channelsUsed[channels[key]] = channels[key]
     }
 
-    const remappedChannels = {
-      Channel: Channels.OutChannel1,
-      'In Channel': Channels.InChannel,
-      'In Channel 1': Channels.InChannel1,
-      'In Channel 2': Channels.InChannel2,
-      'On Channel': Channels.OnChannel,
-      'Off Channel': Channels.OffChannel
-    }
-
-    this.Sections[sectionId].Prefabs.push({ID, Position: {x, y}, Properties: { ...remappedChannels, ...Properties}})
+    this.Sections[sectionId].Prefabs.push({ID, Position: {x, y}, Properties: { ...Channels, ...Properties}})
     return channels
   }
 
