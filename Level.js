@@ -134,8 +134,8 @@ class Level {
   addLogicGate({ sectionId=0, ID, x, y, Channels={}, Properties={} }) {
     this.gateCount++
     
-    const channels = Channels
-
+    const channels = { ...Channels, Channel: Channels.OutChannel1 }
+    
     for (const [key, value] of Object.entries(channels)) {  
       if(value === -2) {
         channels[key] = this.nextFreeChannel
@@ -143,7 +143,7 @@ class Level {
       this.channelsUsed[channels[key]] = channels[key]
     }
 
-    this.Sections[sectionId].Prefabs.push({ID, Position: {x, y}, Properties: { ...Channels, ...Properties}})
+    this.Sections[sectionId].Prefabs.push({ID, Position: {x, y}, Properties: { ...channels, ...Properties}})
     return channels
   }
 
