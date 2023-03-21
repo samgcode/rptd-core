@@ -1,5 +1,5 @@
 class Level {
-  constructor({ LevelName="", Creator="", Description="", Music=1, Slot0Gun=-1, Slot1Gun=-1, Slot2Gun=-1, InitialHealth=5, InitialEnergy=30, Sections=[] }) {
+  constructor({ LevelName="", Creator="", Description="", Music=1, Slot0Gun=-1, Slot1Gun=-1, Slot2Gun=-1, InitialAbilities=0, InitialHealth=5, InitialEnergy=30, Sections=[] }) {
     this.LevelName = LevelName
     this.Creator = Creator
     this.Description = Description
@@ -7,6 +7,7 @@ class Level {
     this.Slot0Gun = Slot0Gun
     this.Slot1Gun = Slot1Gun
     this.Slot2Gun = Slot2Gun
+    this.InitialAbilities = InitialAbilities
     this.InitialHealth = InitialHealth
     this.InitialEnergy = InitialEnergy
     this.Sections = Sections
@@ -42,10 +43,10 @@ class Level {
     this.InitialEnergy = InitialEnergy
   }
 
-  createSection({ Name="", Music=1, LevelBounds={x:0, y:0, z:0, w:0}, spanwPointX=0, spawnPointY=0 }) {
+  createSection({ Name="", Music=1, LevelBounds={x:0, y:0, z:0, w:0}, spawnPointX=0, spawnPointY=0 }) {
     this.Sections.push({ 
       Name, 
-      SpawnPoint: {x: spanwPointX, y: spawnPointY, magnitude: 0, sqrMagnitude: 0}, 
+      SpawnPoint: {x: spawnPointX, y: spawnPointY, magnitude: 0, sqrMagnitude: 0}, 
       LevelBounds, 
       Music, 
       T0: "", D: "", BG0: "", SS: "", H: "", M: "", 
@@ -135,6 +136,7 @@ class Level {
     this.gateCount++
     
     const channels = { ...Channels, Channel: Channels.OutChannel1 }
+    delete channels.OutChannel1
     
     for (const [key, value] of Object.entries(channels)) {  
       if(value === -2) {
@@ -164,7 +166,7 @@ class Level {
   }
 
   addClock({ sectionId=0, x, y, Channel=-2, StartActive=false, OnTime=0.1, OffTime=0.1 }) {
-    return this.addLogicGate({ sectionId, ID: 208, x, y, Channels: { OutChannel1: Channel }, Properties: { StartActive, 'On Time': OnTime, 'Off Time': OffTime }})
+    return this.addLogicGate({ sectionId, ID: 208, x, y, Channels: { OutChannel1: Channel }, Properties: { StartActive, 'OnTime': OnTime, 'OffTime': OffTime }})
   }
 
   addLatchGate({ sectionId=0, x, y, OnChannel=-2, OffChannel=-2, OutChannel1=-2, StartActive=false, TFF=false }) {
