@@ -169,6 +169,14 @@ class Level {
     return this.addLogicGate({ sectionId, ID: 208, x, y, Channels: { OutChannel1: Channel }, Properties: { StartActive, 'OnTime': OnTime, 'OffTime': OffTime }})
   }
 
+  addRelay({ sectionId=0, x, y, InChannel1=-2, OutChannel1=-2 }) {
+    return this.addLogicGate({ sectionId, ID: 211, x, y, Channels: { InChannel, InChannel1, OutChannel1 }})
+  }
+  
+  addIndicator({ sectionId=0, x, y, Channel=-2 }) {
+    return this.addLogicGate({ sectionId, ID: 212, x, y, Channels: { Channel }})
+  }
+
   addLatchGate({ sectionId=0, x, y, OnChannel=-2, OffChannel=-2, OutChannel1=-2, StartActive=false, TFF=false }) {
     const channels = { OnChannel, OffChannel, OutChannel1 }
     if(TFF) {
