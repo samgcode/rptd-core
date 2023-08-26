@@ -28,6 +28,12 @@ class Level {
     return channel
   }
 
+  get newChannel() {
+    const ch = this.nextFreeChannel
+    this.useChannel(ch)
+    return ch
+  }
+
   setLevelData({ 
     LevelName=this.LevelName,Creator=this.Creator,Description=this.Description,Music=this.Music,Slot0Gun=this.Slot0Gun,
     Slot1Gun=this.Slot1Gun,Slot2Gun=this.Slot2Gun,InitialHealth=this.InitialHealth,InitialEnergy=this.InitialEnergy
@@ -170,11 +176,11 @@ class Level {
   }
 
   addRelay({ sectionId=0, x, y, InChannel1=-2, OutChannel1=-2 }) {
-    return this.addLogicGate({ sectionId, ID: 211, x, y, Channels: { InChannel, InChannel1, OutChannel1 }})
+    return this.addLogicGate({ sectionId, ID: 211, x, y, Channels: { InChannel: InChannel1, OutChannel1 }})
   }
   
   addIndicator({ sectionId=0, x, y, Channel=-2 }) {
-    return this.addLogicGate({ sectionId, ID: 212, x, y, Channels: { Channel }})
+    return this.addLogicGate({ sectionId, ID: 212, x, y, Channels: { OutChannel1: Channel }})
   }
 
   addLatchGate({ sectionId=0, x, y, OnChannel=-2, OffChannel=-2, OutChannel1=-2, StartActive=false, TFF=false }) {
